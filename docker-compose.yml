@@ -1,0 +1,14 @@
+services:
+  spa_postgres:
+    container_name: spa
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    volumes:
+      - spa_intentions:/var/lib/postgresdata
+    environment:
+      POSTGRES_DB: spa_intentions
+      POSTGRES_USER: spa
+      POSTGRES_PASSWORD: spa
+volumes:
+  spa_intentions:
