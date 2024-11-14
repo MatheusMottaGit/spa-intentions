@@ -21,12 +21,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'pin',
-        'role'
+        'role_id'
     ];
 
     protected $primaryKey = "pin";
 
     public function intentions() {
         return $this->hasMany(Intention::class);
+    }
+
+    public function role() {
+        return $this->belongsTo(Role::class);
     }
 }
