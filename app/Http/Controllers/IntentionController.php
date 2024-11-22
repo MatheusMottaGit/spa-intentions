@@ -8,5 +8,8 @@ use Validator;
 
 class IntentionController extends Controller
 {
-  
+  public function readAll(Request $request) {
+    $intentions = Intention::all();
+    return response()->json($intentions, 200);
+  }
 }

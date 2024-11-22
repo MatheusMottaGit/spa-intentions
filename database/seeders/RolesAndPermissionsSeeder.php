@@ -11,16 +11,14 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        // Criar permissões
-        $createPermission = Permission::firstOrCreate(['permission_name' => 'create_intention']);
-        $readPermission = Permission::firstOrCreate(['permission_name' => 'read_intentions']);
+        Role::firstOrCreate([
+            'role_name' => 'user',
+            'permissions' => json_encode(['create'])
+        ]);
 
-        // Criar roles, verificando se já existem
-        $userRole = Role::firstOrCreate(['role_name' => 'user']);
-        $adminRole = Role::firstOrCreate(['role_name' => 'admin']);
-
-        // Associar permissões às roles
-        $userRole->permissions()->sync([$createPermission->id]); // O "user" pode criar
-        $adminRole->permissions()->sync([$createPermission->id, $readPermission->id]); // O "admin" pode criar e ler
+        Role::firstOrCreate([
+            'role_name' => 'admin',
+            'permissions' => json_encode(['create', 'read'])
+        ]);
     }
 }
