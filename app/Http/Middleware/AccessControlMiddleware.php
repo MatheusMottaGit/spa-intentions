@@ -14,7 +14,7 @@ class AccessControlMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $roleName, string $method): Response
+    public function handle(Request $request, Closure $next, string $roleName): Response
     {
         if (!Auth::check()) {
             return response()->json(['message' => 'Unauthorized.'], 401);
