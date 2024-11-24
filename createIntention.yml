@@ -1,0 +1,17 @@
+config:
+  target: 'http://localhost:8000'
+  phases:
+    - duration: 60
+      arrivalRate: 5  # Número de requisições por segundo
+  defaults:
+    headers:
+      Accept: 'application/json'
+
+scenarios:
+  - flow:
+      - post:
+          url: '/intentions/create'  # URL da rota 'create'
+          json:
+            mass_date: '{{ mass_date }}'
+            contents: ['intention content 1', 'intention content 2']
+            user_id: '171f8c0f-359c-4b08-b472-1791a8a62ba9'  # Substitua por um usuário real ou mockado

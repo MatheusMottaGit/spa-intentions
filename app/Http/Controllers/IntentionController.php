@@ -10,7 +10,11 @@ use Validator;
 class IntentionController extends Controller
 {
   public function readAll(Request $request) {
+    $intentions = Intention::all();
 
+    $groupedIntentions = $intentions->groupBy('mass_date');
+    
+    return response()->json($groupedIntentions, 200);
   }
   public function create(Request $request) {
     $validator = Validator::make($request->all(), [
