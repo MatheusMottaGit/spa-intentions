@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('intentions', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignUuid('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->dateTime('mass_date');
             $table->jsonb('contents')->nullable();
             $table->timestamps();

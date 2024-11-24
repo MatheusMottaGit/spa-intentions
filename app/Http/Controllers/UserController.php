@@ -24,7 +24,7 @@ class UserController extends Controller
 
         $role = Role::where('role_name', $roleName)->firstOrFail();
 
-        if ($role === 'user' && User::where('pin', $request->pin)->exists()) {
+        if ($roleName === 'user' && User::where('pin', $request->pin)->exists()) {
             return response()->json(['message' => 'PIN already taken. Please choose another.'], 409);
         }
 
@@ -38,7 +38,8 @@ class UserController extends Controller
         $token = $user->createToken('auth:spa:user')->plainTextToken;
         
         return response()->json([
-            'access_token' => $token
+            'access_token' => $token,
+            'id' => $user->id
         ], 201);
     }
 }

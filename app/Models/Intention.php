@@ -9,7 +9,7 @@ class Intention extends Model
     protected $fillable = [
         'id',
         'contents',
-        'user_pin',
+        'user_id',
         'mass_date'
     ];
 
