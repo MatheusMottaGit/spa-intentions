@@ -1,13 +1,13 @@
 config:
-  target: 'http://localhost:8000'
+  target: 'http://localhost:8000'  # Substitua pelo seu URL base
   phases:
-    - duration: 60
-      arrivalRate: 10
+    - duration: 60  # Tempo do teste em segundos
+      arrivalRate: 10  # Número de requisições por segundo
   defaults:
     headers:
       Accept: 'application/json'
 
 scenarios:
   - flow:
-    - get:
-      url: '/intentions/read'
+      - get:
+          url: '/intentions/read'  # URL da rota 'readAll'
