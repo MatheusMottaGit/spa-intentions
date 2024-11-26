@@ -20,8 +20,7 @@ class UserController extends Controller
             return response()->json($validator->errors(), 405);
         }
 
-        $roleName = $request->pin === env('ADMIN_SECRET') ? 'admin' : 'user';
-
+        $roleName = $this->setRole($request->pin);
         $role = Role::where('role_name', $roleName)->firstOrFail();
 
         if ($roleName === 'user' && User::where('pin', $request->pin)->exists()) {
@@ -35,11 +34,19 @@ class UserController extends Controller
             'role_id' => $role->id
         ]);
 
-        $token = $user->createToken('auth:spa:user')->plainTextToken;
+        $token = $user->createToken('auth:spa:user', [$roleName])->plainTextToken;
         
         return response()->json([
             'access_token' => $token,
             'id' => $user->id
         ], 201);
+    }
+
+    private function setRole($pin) {
+        if ($pin === env('ADMIN_SECRET')) {
+            return 'admin';
+        }
+
+        return 'user';
     }
 }
