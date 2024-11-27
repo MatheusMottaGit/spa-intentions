@@ -35,6 +35,8 @@ class LoginForm extends Component
         }
 
         $this->isLoading = false;
+
+        return redirect()->route('home');
         // Log::debug($response);
     }
 

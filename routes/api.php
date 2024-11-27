@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/sign', [UserController::class, 'sign'])->name('user.sign');
 
-Route::middleware('auth:sanctum')->group(function() {
+Route::middleware('auth')->group(function() {
   Route::get('/intentions/read', [IntentionController::class, 'readAll'])->middleware('access.control:admin');
   Route::post('/intentions/create', [IntentionController::class, 'create'])->middleware('access.control:admin');
 });

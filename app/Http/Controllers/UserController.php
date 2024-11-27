@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Services\SanctumService;
 use Illuminate\Http\Request;
 use Str;
 use Validator;
@@ -21,10 +22,11 @@ class UserController extends Controller
         }
 
         $roleName = $this->setRole($request->pin);
+        
         $role = Role::where('role_name', $roleName)->firstOrFail();
 
         if ($roleName === 'user' && User::where('pin', $request->pin)->exists()) {
-            return response()->json(['message' => 'PIN already taken. Please choose another.'], 409);
+            return response()->json(['message' => 'Este PIN já estáem uso. Por favor, tente novamente.'], 409);
         }
 
         $user = User::create([
@@ -34,15 +36,14 @@ class UserController extends Controller
             'role_id' => $role->id
         ]);
 
-        $token = $user->createToken('auth:spa:user', [$roleName])->plainTextToken;
+        session(['user_id' => $user->id, 'role' => $roleName]);
         
         return response()->json([
-            'access_token' => $token,
-            'id' => $user->id
+            'message' => "Autenticado com sucesso!",
         ], 201);
     }
 
-    private function setRole($pin) {
+    protected function setRole($pin) {
         if ($pin === env('ADMIN_SECRET')) {
             return 'admin';
         }
