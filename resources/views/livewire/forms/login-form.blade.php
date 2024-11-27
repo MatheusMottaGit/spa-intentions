@@ -9,7 +9,7 @@
             <label for="pin">PIN <span class="opacity-40">(Apenas números de até 5 caracteres)</span></label>
             <input wire:model="pin" placeholder="Exemplo: 12345" class="w-full rounded bg-zinc-900 h-12 px-2 py-1.5 text-sm text-zinc-300" id="pin" type="text">
         </div>
-        <button type="submit" class="md:col-span-2 flex items-center justify-center gap-1 font-medium bg-cyan-800 h-12 rounded">
+        <button type="submit" class="md:col-span-2 flex items-center justify-center gap-1 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 rounded">
             @if ($isLoading)
                 <img src="{{ url('assets/loader.svg') }}" class="animate-spin">
             @else
