@@ -12,17 +12,17 @@
   <livewire:styles />
   <livewire:scripts />
 </head>
-<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-6 p-6">
-  <div class="mx-auto">
-    <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-24">
-  </div>
+<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-6 p-4 sm:p-6">
+  <main class="flex-1 flex flex-col items-center justify-center gap-12 md:gap-16">
+    <div class="w-full max-w-lg flex flex-col gap-5">
+      <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-20 sm:h-24 md:h-32 mx-auto">
 
-  <main class="flex-1 flex flex-col gap-5 items-center justify-center">
-    <div class="text-center space-y-3">
-      <h1 class="font-bold text-2xl">Cadastre-se!</h1>
-      <p class="opacity-60 font-medium">
-        Serve apenas para podermos te identificar no sistema, <br> bem como suas intenções!
-      </p>
+      <div class="text-center space-y-3">
+        <h1 class="font-bold text-2xl sm:text-3xl md:text-4xl">Cadastre-se!</h1>
+        <p class="opacity-60 text-sm sm:text-base md:text-lg font-medium">
+          Serve apenas para podermos te identificar no sistema, bem como suas intenções!
+        </p>
+      </div>
     </div>
 
     @livewire('forms.login-form')
