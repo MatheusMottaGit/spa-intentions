@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,14 +13,7 @@
   <livewire:scripts />
 </head>
 <body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col p-6">
-  <header class="w-full px-4 flex items-center justify-start gap-1">
-    <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-20">
-    
-    <div class="flex flex-col gap-1">
-      <span class="text-xs font-bold md:text-lg">Matheus</span>
-      <a href="#" class="text-red-500 underline font-medium text-xs md:text-lg">Sair</a>
-    </div>
-  </header>
+  @livewire('user-profile-header')
   
   <main class="flex-1 flex items-center justify-center px-4">
     @yield('content')

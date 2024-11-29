@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Services\CalendarService;
+use Auth;
 use Http;
 use Livewire\Component;
 
@@ -67,6 +68,10 @@ class CreateIntentionForm extends Component
         $this->isLoading = true;
 
         $data = $this->validateData();
+
+        $response = Http::withQueryParameters([
+            'user_id' => Auth::user()->id
+        ])->post('http://localhost:8000/api/intentions/create', $data);
     }
 
     public function render()

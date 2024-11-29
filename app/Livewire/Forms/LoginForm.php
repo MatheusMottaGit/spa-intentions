@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Auth;
 use Http;
 use Livewire\Component;
 use Log;
@@ -21,23 +22,34 @@ class LoginForm extends Component
         return $validated;
     }
 
-    public function login() {
+    public function login()
+    {
         $this->isLoading = true;
 
-        $data = $this->validateData();
+        try {
+            $data = $this->validateData();
 
-        $response = Http::post('http://localhost:8000/api/sign', $data);
+            $response = Http::withOptions([
+                'cookies' => false,
+            ])->post('http://localhost:8000/api/sign', $data);
 
-        if ($response->successful()) {
-            session()->flash('success', 'Loggado com sucesso!');
-        }else{
-            session()->flash('error', 'Não foi possível efetuar o login.');
+            if ($response->successful()) {
+                $user = $response->json('user');
+                
+                session()->put('user', $user);
+
+                session()->flash('success', 'Login efetuado com sucesso!');
+
+                return redirect()->route('home');
+            } else {
+                session()->flash('error', 'Credenciais inválidas.');
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao realizar login.');
+            Log::error($e->getMessage());
+        } finally {
+            $this->isLoading = false;
         }
-
-        $this->isLoading = false;
-
-        return redirect()->route('home');
-        // Log::debug($response);
     }
 
     public function render()
