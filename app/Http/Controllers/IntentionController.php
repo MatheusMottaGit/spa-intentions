@@ -16,6 +16,7 @@ class IntentionController extends Controller
     
     return response()->json($groupedIntentions, 200);
   }
+  
   public function create(Request $request) {
     $validator = Validator::make($request->all(), [
       'mass_date' => 'required|date|after_or_equal:' . now()->toDateString(),
