@@ -17,7 +17,7 @@ return new class extends Migration
             $table->char('pin', 5);
             $table->string('name');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
-            $table->json('intentions')->nullable();
+            $table->foreignId('intention_id')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

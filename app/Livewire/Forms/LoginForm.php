@@ -13,43 +13,25 @@ class LoginForm extends Component
     public $pin;
     public $isLoading = false;
 
-    public function validateData() {
-        $validated = $this->validate([
-            'name' => 'required|string',
-            'pin' => 'required|digits:5|max:5'
-        ]);
-
-        return $validated;
-    }
-
-    public function login()
+    public function sign()
     {
         $this->isLoading = true;
 
-        try {
-            $data = $this->validateData();
-
-            $response = Http::withOptions([
-                'cookies' => false,
-            ])->post('http://localhost:8000/api/sign', $data);
-
-            if ($response->successful()) {
-                $user = $response->json('user');
-                
-                session()->put('user', $user);
-
-                session()->flash('success', 'Login efetuado com sucesso!');
-
-                return redirect()->route('home');
-            } else {
-                session()->flash('error', 'Credenciais inválidas.');
-            }
-        } catch (\Exception $e) {
-            session()->flash('error', 'Erro ao realizar login.');
-            Log::error($e->getMessage());
-        } finally {
-            $this->isLoading = false;
+        $response = Http::post(route('auth.sign'), data: [
+            'name' => $this->name,
+            'pin' => $this->pin
+        ]);
+        
+        if ($response->successful()) {
+            Auth::login($response->json()['user']);
+            
+            session()->flash('success', 'Login efetuado com sucesso!');
+            return redirect()->route('home');
+        } else {
+            session()->flash('error', 'Credenciais inválidas.');
         }
+
+        $this->isLoading = false;
     }
 
     public function render()

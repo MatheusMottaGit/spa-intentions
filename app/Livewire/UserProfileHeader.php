@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class UserProfileHeader extends Component
 {
+    public $user;
+
     public function logout() {
         $response = Http::withQueryParameters([
             'user_id' => session('user')['id']
@@ -25,8 +27,12 @@ class UserProfileHeader extends Component
         }
     }
 
+    public function mount() {
+        $this->user = Auth::user();
+    }
+
     public function render()
     {
-        return view('livewire.user-profile-header');
+        return view('livewire.user-profile-header', ['user' => $this->user]);
     }
 }

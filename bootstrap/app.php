@@ -20,17 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'access.control' => AccessControlMiddleware::class,
-            'web' => [
-                EncryptCookies::class,
-                AddQueuedCookiesToResponse::class,
-                StartSession::class,
-                ShareErrorsFromSession::class,
-                SubstituteBindings::class
-            ],
-            'api' => [
-                'throttle:api',
-                SubstituteBindings::class
-            ]
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

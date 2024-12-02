@@ -42,7 +42,7 @@
 
   <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6 w-full max-w-4xl">
     @foreach ($contents as $intention)
-      <div class="py-2 px-3 w-full bg-zinc-900 rounded-md flex items-center justify-between text-gray-400">
+      <div class="py-2 px-3 w-52 bg-zinc-900 rounded-md flex items-center justify-between text-gray-400">
         <span class="text-sm sm:text-base lg:text-lg">{{ $intention }}</span>
         
         <button class="bg-transparent" type="button">

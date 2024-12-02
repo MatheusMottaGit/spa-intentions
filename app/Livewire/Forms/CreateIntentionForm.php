@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Forms;
 
-use App\Services\CalendarService;
-use Auth;
 use Http;
 use Livewire\Component;
 
@@ -50,15 +48,6 @@ class CreateIntentionForm extends Component
     //     $this->currentYear = $this->calendarService->currentYear;
     // }
 
-    public function validateData() {
-        $validated = $this->validate([
-            'mass_date' => 'required|date',
-            'contents' => 'required|array'
-        ]);
-
-        return $validated;
-    }
-
     public function addIntentions() {
         $this->contents[] = $this->content;
         $this->content = "";
@@ -67,11 +56,16 @@ class CreateIntentionForm extends Component
     public function registerIntentions() {
         $this->isLoading = true;
 
-        $data = $this->validateData();
+        $data = $this->validate([
+            'mass_date' => 'required|date',
+            'contents' => 'required|array'
+        ]);
 
         $response = Http::withQueryParameters([
-            'user_id' => Auth::user()->id
+            'user_id' => session('user')['id']
         ])->post('http://localhost:8000/api/intentions/create', $data);
+
+        // dd($response->successful());
     }
 
     public function render()
