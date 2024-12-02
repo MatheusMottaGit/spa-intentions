@@ -23,9 +23,8 @@ class LoginForm extends Component
         ]);
         
         if ($response->successful()) {
-            Auth::login($response->json()['user']);
-            
             session()->flash('success', 'Login efetuado com sucesso!');
+
             return redirect()->route('home');
         } else {
             session()->flash('error', 'Credenciais inválidas.');

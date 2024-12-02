@@ -11,14 +11,12 @@ class RolesAndPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        Role::firstOrCreate([
+        Role::create([
             'role_name' => 'user',
-            'permissions' => json_encode(['create'])
         ]);
 
-        Role::firstOrCreate([
+        Role::create([
             'role_name' => 'admin',
-            'permissions' => json_encode(['create', 'read'])
         ]);
     }
 }

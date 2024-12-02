@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Auth;
 use Http;
 use Livewire\Component;
+use Log;
 
 class UserProfileHeader extends Component
 {
@@ -28,11 +29,17 @@ class UserProfileHeader extends Component
     }
 
     public function mount() {
-        $this->user = Auth::user();
+        $response = Http::get(route('auth.user.details'));
+        
+        Log::debug($response->json());
+    
+        // if ($response->successful() && isset($response->json()['user'])) {
+        //     $this->user = $response->json()['user'];
+        // }
     }
 
     public function render()
     {
-        return view('livewire.user-profile-header', ['user' => $this->user]);
+        return view('livewire.user-profile-header');
     }
 }

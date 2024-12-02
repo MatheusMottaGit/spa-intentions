@@ -17,13 +17,11 @@ class AccessControlMiddleware
     public function handle(Request $request, Closure $next, string $roleName): Response
     {
         if (!Auth::check()) {
-            return response()->json(['message' => 'Unauthorized.'], 401);
+            return response()->json(['message' => 'Acesso não autorizado.']);
         }
 
-        $user = Auth::user();
-
-        if ($user->role->role_name !== $roleName) {
-            return response()->json(['message' => "Access denied: Your role doesn't have access here."], 403);
+        if (!Auth::user()->hasRole($roleName)) {
+            return response()->json(['message' => 'Acesso negado! Sua função não permite acessar essa página.']);
         }
 
         return $next($request);

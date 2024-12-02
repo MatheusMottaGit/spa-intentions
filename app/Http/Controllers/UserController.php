@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use Log;
 use Str;
 use Validator;
 
@@ -13,39 +13,40 @@ class UserController extends Controller
 {
     public function sign(Request $request) {
         $validator = Validator::make($request->all(), [
-            
+            'name' => 'required|string',
+            'pin' => 'required|digits:5|max:5'
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 405);
         }
 
-        $roleName = $this->setRole($request->pin);
-        
-        $role = Role::where('role_name', $roleName)->firstOrFail();
-
-        if ($roleName === 'user' && User::where('pin', $request->pin)->exists()) {
-            return response()->json(['message' => 'Este PIN já está em uso. Por favor, tente outro.'], 409);
-        }
-
-        $user = User::create([
+        $user = new User([
             'id' => Str::uuid(),
             'name' => $request->name,
-            'pin' => $request->pin,
-            'role_id' => $role->id
+            'pin' => $request->pin
         ]);
 
-        return response()->json([
-            'message' => "Autenticado!",
-            'user' => $user
-        ], 201);
-    }    
+        $user->assignRole($request->pin);
 
-    protected function setRole($pin) {
-        if ($pin === env('ADMIN_SECRET')) {
-            return 'admin';
-        }
+        $user->save();
 
-        return 'user';
+        Auth::login($user);
+
+        // Log::debug(auth()->user());
+
+        return redirect()->route('home')->with('success', 'Usuário autenticado com sucesso!');
     }
+
+    public function signForm() {
+        return view('sign');
+    }
+
+    public function getUser() {
+        $user = Auth::user();
+
+        Log::debug($user);
+
+        return response()->json($user, 200);
+    }    
 }

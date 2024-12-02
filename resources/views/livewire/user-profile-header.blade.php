@@ -2,7 +2,7 @@
   <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-20">
   
   <div class="flex flex-col gap-1 items-start">
-    <span class="text-xs font-bold md:text-lg">{{ $user->name }}</span>
+    {{-- <span class="text-xs font-bold md:text-lg">{{ $user['name'] }}</span> --}}
     
     <button type="button" wire:click="logout" class="text-red-500 underline font-medium text-xs md:text-lg">
       Sair
