@@ -38,7 +38,7 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        return $this->role()->role_name === "admin";
+        return $this->role->role_name === "admin";
     }
 
     public function assignRole(string $pin)

@@ -10,7 +10,7 @@
     </div>
 
     <div class="w-full max-w-7xl">
-      @livewire('forms.create-intention-form')
+
     </div>
   </div>
 @endsection
