@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\Permission;
 use App\Models\User;
 
-class RolesAndPermissionsSeeder extends Seeder
+class RolesSeeder extends Seeder
 {
     public function run()
     {

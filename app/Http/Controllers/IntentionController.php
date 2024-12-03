@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Intention;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Log;
 use Validator;
 
 class IntentionController extends Controller
@@ -16,10 +16,16 @@ class IntentionController extends Controller
     
     return response()->json($groupedIntentions, 200);
   }
-
+  
   public function create(Request $request) {
+    if ($request->has('contents') && is_string($request->contents)) {
+      $request->merge([
+        'contents' => json_decode($request->contents, true),
+      ]);
+    }
+
     $validator = Validator::make($request->all(), [
-      'mass_date' => 'required|date|after_or_equal:' . now()->toDateString(),
+      'mass_date' => 'required|date|after_or_equal:' . now()->toDateTimeLocalString(),
       'contents' => 'required|array',
       'contents.*' => 'string'
     ]);
@@ -32,16 +38,27 @@ class IntentionController extends Controller
 
     // Log::debug($userId);
 
-    $intention = Intention::create([
+    $user = User::where('id', $userId)->firstOrFail();
+
+    Intention::create([
       'mass_date' => $request->mass_date,
       'contents' => $request->contents,
       'user_id' => $userId
     ]);
 
-    return response()->json($intention, 201);
+    if ($user->isAdmin()) {
+      return redirect()->route('intentions')->with('success', 'Intenção registrada!');
+    }
+    else{
+      return redirect()->route('home')->with('success', 'Intenção registrada!');
+    }
   }
 
-  public function home() {
+  public function homeView() {
     return view('home');
+  }
+
+  public function intentionsView() {
+    return view('intentions');
   }
 }
