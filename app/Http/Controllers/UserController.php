@@ -10,7 +10,7 @@ use Validator;
 
 class UserController extends Controller
 {
-    public function sign(Request $request) {
+    public function login(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'pin' => 'required|digits:5|max:5'
@@ -35,14 +35,14 @@ class UserController extends Controller
         return redirect()->route('home')->with('success', 'Usuário autenticado!');
     } 
 
-    public function signOut(Request $request) {
+    public function logOut(Request $request) {
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return redirect()->route('sign');
+        return redirect()->route('login');
     }
     
-    public function signView() {
-        return view('auth.sign');
+    public function loginView() {
+        return view('auth.login');
     }
 }

@@ -25,7 +25,7 @@
     </div>
 
     <div class="w-full max-w-xl px-4 sm:px-6 md:px-0">
-      <form method="POST" action="{{ route('auth.sign') }}" class="grid gap-4 md:grid-cols-2">
+      <form method="POST" action="{{ route('auth.login') }}" class="grid gap-4 md:grid-cols-2">
         @csrf
         <div class="space-y-2">
           <label class="text-sm sm:text-base md:text-lg font-medium" for="name">Nome</label>

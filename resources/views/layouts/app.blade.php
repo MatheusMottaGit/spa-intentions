@@ -19,7 +19,7 @@
       <div class="flex flex-col gap-1 items-start">
         <span class="text-xs font-bold md:text-lg">{{ auth()->user()->name }}</span>
         
-        <form action="{{ route('auth.signOut') }}" method="POST" class="inline">
+        <form action="{{ route('auth.logOut') }}" method="POST" class="inline">
           @csrf
           <button type="submit" class="text-red-500 underline font-medium text-xs md:text-lg">
             Sair
