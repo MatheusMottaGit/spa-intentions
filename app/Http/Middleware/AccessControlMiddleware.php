@@ -17,11 +17,11 @@ class AccessControlMiddleware
     public function handle(Request $request, Closure $next, string $roleName): Response
     {
         if (!auth()->check()) {
-            return response()->json(['message' => 'Acesso não autorizado.']);
+            return redirect()->route('sign');
         }
 
         if (!auth()->user()->hasRole($roleName)) {
-            return response()->json(['message' => 'Acesso negado! Sua função não permite acessar essa página.']);
+            return redirect()->route('home')->with('warning', 'Pode ser que você não possa acessar essa página!');
         }
 
         return $next($request);

@@ -33,16 +33,14 @@ class UserController extends Controller
         auth()->login($user);
 
         return redirect()->route('home')->with('success', 'Usuário autenticado!');
-        
-        // return response()->json([
-        //     'message' => 'Usuário autenticado!',
-        //     'user' => [
-        //         'id' => $user->id,
-        //         'name' => $user->name,
-        //         'role' => $user->role->role_name,
-        //     ],
-        // ], 201);
     } 
+
+    public function signOut(Request $request) {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect()->route('sign');
+    }
     
     public function signView() {
         return view('auth.sign');

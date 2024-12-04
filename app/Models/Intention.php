@@ -16,6 +16,7 @@ class Intention extends Model
     protected $primaryKey = "id";
 
     protected $casts = [
+        'mass_date' => 'datetime',
         'contents' => 'array'
     ];
 

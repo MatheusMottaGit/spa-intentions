@@ -1,16 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="flex-1 flex flex-col gap-6 sm:gap-8 items-center justify-center px-4 sm:px-6">
-    <div class="text-center space-y-4">
-      <h1 class="text-lg sm:text-xl md:text-2xl font-bold">Envie suas intenções!</h1>
-      <p class="text-sm sm:text-base md:text-lg opacity-60 font-medium">
-        Tudo poderá ser acessado pelo coordenador da comunidade, e será lida no dia especificado!
-      </p>
-    </div>
+  <div class="flex flex-wrap gap-4 mt-10">
+    {{-- @php
+      dd($intentions);
+    @endphp --}}
+    @foreach ($intentions as $date => $intentionGroup)
+      <div class="p-6 border border-zinc-200 space-y-4 rounded-lg shadow dark:bg-zinc-900 dark:border-zinc-700">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+          Acessar intenções do dia <br> ({{ \Carbon\Carbon::parse($date)->format('d/m') }})
+        </h5>
 
-    <div class="w-full max-w-7xl">
-
-    </div>
+        <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">
+          {{ count($intentionGroup) > 1 ? count($intentionGroup) . ' intenções registradas' : count($intentionGroup) . ' intenção registrada' }}
+        </p>
+        
+        <a href="{{ route('intentions.details', ['date' => $date]) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-cyan-800 rounded-lg hover:bg-cyan-900 focus:ring-4 focus:outline-none">
+          Acessar
+          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg>
+        </a>
+      </div>
+    @endforeach
   </div>
 @endsection
