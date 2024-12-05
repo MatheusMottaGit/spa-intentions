@@ -10,7 +10,8 @@ class Intention extends Model
         'id',
         'contents',
         'user_id',
-        'mass_date'
+        'mass_date',
+        'church_id'
     ];
 
     protected $primaryKey = "id";
@@ -22,5 +23,9 @@ class Intention extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function church() {
+        return $this->belongsTo(Church::class);
     }
 }

@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('intentions', function (Blueprint $table) {
+        Schema::create('churches', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->dateTime('mass_date');
-            $table->jsonb('contents')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('intentions');
+        Schema::dropIfExists('churches');
     }
 };

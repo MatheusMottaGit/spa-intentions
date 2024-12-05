@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Church;
 use App\Models\Intention;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Log;
 use Validator;
 
 class IntentionController extends Controller
@@ -29,7 +31,9 @@ class IntentionController extends Controller
 
     $userId = $request->query('user_id');
 
-    // Log::debug($userId);
+    $churchId = $request->query('church_id');
+
+    Log::debug($churchId);
 
     $user = User::where('id', $userId)->firstOrFail();
 
@@ -38,7 +42,8 @@ class IntentionController extends Controller
     Intention::create([
       'mass_date' => Carbon::parse($request->mass_date)->setHours((int)$hour)->setMinutes((int)$min)->setSeconds(0),
       'contents' => $request->contents,
-      'user_id' => $userId
+      'user_id' => $userId,
+      'church_id' => $churchId
     ]);
 
     if ($user->isAdmin()) {
@@ -50,7 +55,9 @@ class IntentionController extends Controller
   }
 
   public function homeView() {
-    return view('home');
+    $churches = Church::all();
+
+    return view('home', compact('churches'));
   }
 
   public function intentionsView() {
@@ -63,6 +70,16 @@ class IntentionController extends Controller
 
   public function intentionsDetailsView(string $date) {
     $intentionsGroup = Intention::whereDate('mass_date', $date)->get();
-    return view('intentions-details', compact('date', 'intentionsGroup'));
+
+    $massHours = [
+      '07:00',
+      '08:00',
+      '09:00',
+      '10:00',
+      '18:00',
+      '19:00'
+    ];
+
+    return view('intentions-details', compact('date', 'intentionsGroup', 'massHours'));
   }
 }

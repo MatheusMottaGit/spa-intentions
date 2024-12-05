@@ -11,8 +11,8 @@
   @vite(['resources/js/app.js', 'resources/css/app.css'])
   <title>Intenções</title>
 </head>
-<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col p-6">
-  <header class="w-full flex items-center justify-between">
+<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col p-3">
+  <header class="w-full flex items-center justify-between px-7">
     <div class="flex items-center gap-2">
       <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-28">
     
