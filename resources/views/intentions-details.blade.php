@@ -4,7 +4,7 @@
   <div class="flex-1 p-6">
     @livewire('intentions-details-table', [
       'intentionsGroup' => $intentionsGroup,
-      'massHours' => $massHours
+      'date' => $date
     ])
   </div>
 @endsection

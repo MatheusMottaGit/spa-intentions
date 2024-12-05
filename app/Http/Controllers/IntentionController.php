@@ -33,7 +33,7 @@ class IntentionController extends Controller
 
     $churchId = $request->query('church_id');
 
-    Log::debug($churchId);
+    // Log::debug($churchId);
 
     $user = User::where('id', $userId)->firstOrFail();
 
@@ -71,15 +71,6 @@ class IntentionController extends Controller
   public function intentionsDetailsView(string $date) {
     $intentionsGroup = Intention::whereDate('mass_date', $date)->get();
 
-    $massHours = [
-      '07:00',
-      '08:00',
-      '09:00',
-      '10:00',
-      '18:00',
-      '19:00'
-    ];
-
-    return view('intentions-details', compact('date', 'intentionsGroup', 'massHours'));
+    return view('intentions-details', compact('date', 'intentionsGroup'));
   }
 }
