@@ -23,7 +23,7 @@ class IntentionsDetailsTable extends Component
     public $selectedHour;
     public $selectedChurch;
 
-    public function filterIntentions(?string $hour, ?int $churchId) {
+    public function filterIntentions($hour = null, $churchId = null) {
         $this->selectedHour = $hour;
         $this->selectedChurch = $churchId;
     
@@ -40,7 +40,7 @@ class IntentionsDetailsTable extends Component
             ->get();
     
         $this->intentionsGroup = $filteredIntentions;
-    }    
+    }            
 
     public function render()
     {
