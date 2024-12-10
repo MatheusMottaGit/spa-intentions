@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="w-full">
+    <div class="max-w-6xl">
       <form method="POST" action="{{ route('auth.login') }}" class="grid gap-4 md:grid-cols-2">
         @csrf
         <div class="space-y-2">

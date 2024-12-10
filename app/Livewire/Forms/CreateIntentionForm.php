@@ -10,6 +10,7 @@ class CreateIntentionForm extends Component
     public $contents = [];
     public $content = "";
     public $isLoading = false;
+    public $showModal = false;
     public $churches = [];
     public $churchId = "";
     public $churchName = "";
@@ -17,6 +18,7 @@ class CreateIntentionForm extends Component
     public function addIntentions() {
         $this->contents[] = $this->content;
         $this->content = "";
+        // dd($this->contents);
     }
 
     public function removeIntention(int $key)
@@ -30,6 +32,11 @@ class CreateIntentionForm extends Component
         }
 
         $this->contents = $filtered;
+    }
+
+    public function toggleModal()
+    {
+        $this->showModal = !$this->showModal;
     }
 
     public function mount($churches) {

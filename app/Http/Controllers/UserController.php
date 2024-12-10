@@ -37,8 +37,11 @@ class UserController extends Controller
 
     public function logOut(Request $request) {
         auth()->logout();
+        
         $request->session()->invalidate();
+        
         $request->session()->regenerate();
+        
         return redirect()->route('login');
     }
     

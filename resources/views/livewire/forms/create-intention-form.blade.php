@@ -1,8 +1,8 @@
-<div class="flex-1 flex flex-col gap-6 sm:gap-8 items-center justify-center px-3 sm:px-6">
+<div class="flex-1 flex flex-col gap-6 items-center justify-center">
   <form method="POST" action="{{ route('intention.create', ['user_id' => auth()->user()->id, 'church_id' => $churchId]) }}" class="grid w-full max-w-6xl lg:grid-cols-2 gap-3">
     @csrf
     <div class="space-y-2">
-      <label class="text-sm sm:text-base lg:text-lg font-medium" for="mass_date">Data da missa</label>
+      <label class="text-lg font-medium" for="mass_date">Data da missa</label>
 
       <div class="relative h-12 lg:h-14 rounded-md">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -18,11 +18,11 @@
     </div>
 
     <div class="space-y-2">
-      <label for="time" class="text-sm sm:text-base lg:text-lg font-medium">Horário</label>
+      <label for="time" class="text-lg font-medium">Horário</label>
 
       <div class="relative h-12 lg:h-14 rounded-md">
         <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          <svg class="w-4 h-4 text-zinc-500 dark:text-zinc-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
             fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd"
               d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z"
@@ -35,7 +35,7 @@
     </div>
 
     <div class="space-y-2 lg:col-span-2">
-      <label class="text-sm sm:text-base lg:text-lg font-medium" for="church">Comunidade em que vai ocorrer a missa</label>
+      <label class="text-lg font-medium" for="church">Comunidade da missa</label>
 
       <div class="flex flex-column base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-zinc-500 bg-zinc-900 justify-between w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
@@ -48,7 +48,7 @@
           </svg>
         </button>
 
-        <div id="dropdown"class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[80%] bg-zinc-950">
+        <div id="dropdown"class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[90%] bg-zinc-950">
           <ul class="py-2 text-base text-zinc-300" aria-labelledby="dropdownDefaultButton">
             @foreach ($churches as $church)
               <li wire:click="selectChurch('{{ $church->id }}', '{{ $church->name }}')" class="block px-4 cursor-pointer py-2 hover:bg-zinc-900 hover:text-white">{{ $church->name }}</li>
@@ -58,38 +58,62 @@
       </div>
     </div>
 
-    <div class="space-y-2 lg:col-span-2">
-      <label class="text-sm sm:text-base lg:text-lg font-medium" for="contents">Intenções</label>
+    <div class="space-y-2 lg:col-span-2 border-t border-t-zinc-800">
+      <button wire:click="toggleModal" class="w-full flex gap-2 text-zinc-500 rounded-md px-3 py-3 items-center justify-start" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M3 15h6"/><path d="M6 12v6"/></svg>
+        Quais são suas intenções?
+      </button>
 
-      <div class="flex gap-2 sm:gap-3 items-center">
-        <input placeholder="Exemplo: sétimos dias, aniversários..." class="w-full rounded-md outline-none border-none bg-zinc-900 h-12 lg:h-14 px-3 py-2 text-gray-300" name="contents" wire:model="content" id="contents" type="text">
+      <input type="hidden" name="contents" value="{{ json_encode($contents) }}">
+  
+      @if ($showModal)
+        <div class="bg-black/60 fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full flex p-4">
+          <div class="relative rounded-lg shadow bg-zinc-900 w-full max-w-lg">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 md:p-5 rounded-t border-b border-b-zinc-700">
+              <h3 class="text-xl font-semibold text-white">Criar intenção</h3>
+              <button type="button" wire:click="toggleModal" class="text-zinc-400 bg-transparent hover:text-zinc-400 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-zinc-600">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Fechar modal</span>
+              </button>
+            </div>
 
-        <button wire:click.prevent='addIntentions' class="bg-cyan-800 hover:bg-cyan-900 rounded-md h-12 lg:h-14 w-14 lg:w-16 flex items-center justify-center" type="button">
-          <img src="{{ url('assets/plus.svg') }}" class="h-5 w-5 lg:h-6 lg:w-6">
-        </button>
-      </div>
+            @if (count($contents) !== 0)
+              <div class="flex flex-wrap gap-2 p-4">
+                @foreach ($contents as $key => $intention)
+                  <div class="py-1.5 px-3 bg-zinc-800 rounded-md flex items-center gap-5 text-zinc-400">
+                    <span class="text-lg w-full text-center">{{ $intention }}</span>
+                    
+                    <button class="bg-transparent" type="button" wire:click="removeIntention({{ $key }})">
+                      <img src="{{ url('assets/x.svg') }}" class="h-4 w-4 lg:h-5 lg:w-5">
+                    </button>
+                  </div>
+                @endforeach
+              </div>
+            @endif
+
+            <!-- Footer -->
+            <div class="flex items-center flex-col gap-2 p-4 md:p-5 rounded-b">
+              <input placeholder="Digite sua intenção..." class="w-full rounded-md outline-none border-none bg-zinc-800 h-12 lg:h-14 px-3 py-2 text-gray-300" wire:model="content" id="contents" type="text">
+
+              <button wire:click='addIntentions' class="bg-cyan-800 hover:bg-cyan-900 rounded-md gap-2 h-12 lg:h-14 w-full lg:w-16 flex items-center justify-center" type="button">
+                Adicionar 
+                <img src="{{ url('assets/plus.svg') }}" class="h-5 w-5 lg:h-6 lg:w-6">
+              </button>
+            </div>
+          </div>
+        </div>
+      @endif
     </div>
-
-    <input type="hidden" name="contents" value="{{ json_encode($contents) }}">
-
-    <button type="submit" class="lg:col-span-2 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium bg-cyan-800 hover:bg-cyan-900 h-12 lg:h-14 rounded-md">
+  
+    <button type="submit" class="lg:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 lg:h-14 rounded-md">
       @if ($isLoading)
-        <img src="{{ url('assets/loader.svg') }}" class="animate-spin h-5 w-5 lg:h-6 lg:w-6">
+        <img src="{{ url('assets/loader.svg') }}" class="animate-spin size-5">
       @else
-        Enviar <img src="{{ url('assets/send.svg') }}" class="h-5 w-5 lg:h-6 lg:w-6">
+        Enviar <img src="{{ url('assets/send.svg') }}" class="size-5">
       @endif
     </button>
   </form>
-
-  <div class="flex flex-wrap gap-2">
-    @foreach ($contents as $key => $intention)
-      <div class="py-2 px-4 bg-zinc-900 rounded-md flex items-center gap-5 text-gray-400">
-        <span class="text-sm sm:text-base lg:text-lg w-full text-center">{{ $intention }}</span>
-
-        <button class="bg-transparent" type="button" wire:click="removeIntention({{ $key }})">
-          <img src="{{ url('assets/x.svg') }}" class="h-4 w-4 lg:h-5 lg:w-5">
-        </button>
-      </div>
-    @endforeach
-  </div>
 </div>

@@ -10,7 +10,7 @@
   @vite(['resources/js/app.js', 'resources/css/app.css'])
   <title>Intenções</title>
 </head>
-<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-8">
+<body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-5">
   <header class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-2 gap-4 mx-auto">
     <div class="flex items-center gap-2">
       <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-28">
@@ -33,7 +33,7 @@
     @endif --}}
   </header>
 
-  <main class="flex-1 py-2">
+  <main class="flex-1 py-4">
     @yield('content')
   </main>
 </body>
