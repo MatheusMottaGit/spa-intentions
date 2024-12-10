@@ -33,8 +33,7 @@
         </svg>
       </button>
 
-      <div id="dropdown1"
-        class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[85%] bg-zinc-950">
+      <div id="dropdown1" class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[85%] bg-zinc-950">
         <ul class="py-2 text-base text-zinc-300">
           @foreach ($massHours as $hour)
           <li wire:click="filterIntentions('{{ $hour }}', {{ $selectedChurch }})"
@@ -49,7 +48,6 @@
 
   <div class="w-full text-sm space-y-3 mt-5">
     {{-- <span class="opacity-70 font-medium">* Clique na intenção para ver detalhes</span> --}}
-    
     <div class="relative overflow-x-auto shadow-md border border-zinc-600 rounded-lg mt-4">
       <table class="w-full text-sm sm:text-base text-left rtl:text-right">
         <thead class="text-zinc-300 uppercase bg-transparent border-b border-b-zinc-600">

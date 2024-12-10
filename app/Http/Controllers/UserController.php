@@ -32,7 +32,7 @@ class UserController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('home')->with('success', 'Usuário autenticado!');
+        return redirect()->route('home')->with('login-success', 'Usuário autenticado!');
     } 
 
     public function logOut(Request $request) {

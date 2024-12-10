@@ -47,10 +47,10 @@ class IntentionController extends Controller
     ]);
 
     if ($user->isAdmin()) {
-      return redirect()->route('intentions')->with('success', 'Intenção registrada!');
+      return redirect()->route('intentions')->with('intention-success', 'Intenção registrada!');
     }
     else{
-      return redirect()->route('home')->with('success', 'Intenção registrada!');
+      return redirect()->route('home')->with('intention-success', 'Intenção registrada!');
     }
   }
 
