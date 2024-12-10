@@ -1,5 +1,5 @@
 <div class="flex-1 flex flex-col gap-6 items-center justify-center">
-  {{-- @session('intention-success') --}}
+  @session('intention-success')
   <div id="toast-interactive"
     class="w-full max-w-xs p-3 text-zinc-400 rounded-lg shadow bg-zinc-800"
     role="alert">
@@ -14,7 +14,7 @@
         <span class="sr-only">Check icon</span>
       </div>
       <div class="ms-3 font-normal">
-        <span class="mb-1 font-semibold text-zinc-100">Intenção registrada!</span>
+        <span class="mb-1 font-semibold text-zinc-100">{{ $value }}</span>
         <div class="font-normal mt-1.5">A partir de agora, aguarde sua intenção ser lida ao início da missa!</div>
       </div>
       <button type="button"
@@ -28,7 +28,7 @@
       </button>
     </div>
   </div>
-  {{-- @endsession --}}
+  @endsession
 
   <form method="POST"
     action="{{ route('intention.create', ['user_id' => auth()->user()->id, 'church_id' => $churchId]) }}"
