@@ -7,7 +7,7 @@
     <div class="text-center space-y-4">
       <h1 class="text-2xl font-bold">Envie suas intenções!</h1>
       <p class="opacity-60 font-medium">
-        Tudo poderá ser acessado pelo coordenador da comunidade, e será lida no dia especificado!
+        Tudo será acessado pelo(a) animador(a) na comunidade, e será lida no seu dia especificado de forma anônima!
       </p>
     </div>
 

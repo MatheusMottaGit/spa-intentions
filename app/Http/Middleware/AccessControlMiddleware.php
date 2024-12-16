@@ -21,7 +21,7 @@ class AccessControlMiddleware
         }
 
         if (!auth()->user()->hasRole($roleName)) {
-            return redirect()->route('home')->with('warning', 'Pode ser que você não possa acessar essa página!');
+            return redirect()->route('home')->with('access-denied', 'Você não pode acessar essa página.');
         }
 
         return $next($request);

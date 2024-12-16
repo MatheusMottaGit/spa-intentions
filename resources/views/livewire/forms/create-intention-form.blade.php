@@ -25,7 +25,7 @@
           </svg>
           <span class="sr-only">Check icon</span>
         </div>
-          <p class="text-base leading-relaxed text-gray-400">
+          <p class="text-base leading-relaxed text-zinc-400">
             A partir de agora, aguarde sua intenção ser lida ao início da missa!
           </p>
         </div>
@@ -74,18 +74,15 @@
           </svg>
         </div>
 
-        <input name="mass_date" id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd"
-          datepicker-orientation="bottom left" type="text"
-          class="border-none text-zinc-400 bg-zinc-900 rounded-md h-full w-full ps-10 p-2.5"
-          placeholder="Selecionar data...">
+        <input name="mass_date" id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" datepicker-orientation="bottom left" type="text" class="border-none text-zinc-400 bg-zinc-900 rounded-md h-full w-full ps-10 p-2.5" placeholder="Selecionar data...">
       </div>
     </div>
 
     <div class="space-y-2">
       <label for="time" class="text-lg font-medium">Horário</label>
 
-      <div class="flex flex-column base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
-        <button id="dropdownDefaultButton-2" data-dropdown-toggle="dropdown-2" class="text-zinc-500 bg-zinc-900 justify-between w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
+      <div class="flex flex-column h-12 lg:h-14 base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
+        <button id="dropdownDefaultButton-2" data-dropdown-toggle="dropdown-2" class="text-zinc-500 h-full bg-zinc-900 justify-between w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
           {{ $selectedHour ? $selectedHour : 'Escolher horário' }}
 
           <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -95,10 +92,10 @@
 
         <input type="hidden" name="mass_hour" value="{{ $selectedHour }}">
 
-        <div id="dropdown-2" class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[90%] bg-zinc-950">
+        <div id="dropdown-2" class="z-10 hidden divide-y divide-zinc-100 rounded-lg w-44 shadow bg-zinc-950 border border-zinc-600">
           <ul class="py-2 text-base text-zinc-300" aria-labelledby="dropdownDefaultButton-2">
             @foreach ($hours as $index => $hour)
-            <li wire:click="selectHour({{ $index }})" class="block px-4 cursor-pointer py-2 hover:bg-zinc-900 hover:text-white">{{ $hour }}</li>
+            <li wire:click="selectHour({{ $index }})" class="block px-4 cursor-pointer py-2 hover:bg-cyan-800 transition-colors text-white">{{ $hour }}</li>
             @endforeach
           </ul>
         </div>
@@ -108,10 +105,8 @@
     <div class="space-y-2 lg:col-span-2">
       <label class="text-lg font-medium" for="church">Comunidade da missa</label>
 
-      <div class="flex flex-column base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-          class="text-zinc-500 bg-zinc-900 justify-between w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center"
-          type="button">
+      <div class="flex flex-column h-12 lg:h-14 base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-zinc-500 bg-zinc-900 justify-between h-full w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
           {{ $churchName ? $churchName : 'Escolher comunidade' }}
 
           <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -122,11 +117,11 @@
         </button>
 
         <div id="dropdown"
-          class="z-10 hidden divide-y divide-zinc-100 rounded-lg border border-zinc-600 shadow w-[90%] bg-zinc-950">
+          class="z-10 hidden divide-y rounded-lg shadow border w-[85%] border-zinc-600 bg-zinc-950 divide-zinc-600">
           <ul class="py-2 text-base text-zinc-300" aria-labelledby="dropdownDefaultButton">
             @foreach ($churches as $church)
             <li wire:click="selectChurch('{{ $church->id }}', '{{ $church->name }}')"
-              class="block px-4 cursor-pointer py-2 hover:bg-zinc-900 hover:text-white">{{ $church->name }}</li>
+              class="block px-4 cursor-pointer py-2 hover:bg-cyan-800 transition-colors text-white">{{ $church->name }}</li>
             @endforeach
           </ul>
         </div>
@@ -135,14 +130,7 @@
 
     <div class="space-y-2 lg:col-span-2 border-t border-t-zinc-800">
       <button wire:click="toggleModal" class="w-full flex gap-2 text-zinc-500 rounded-md px-3 py-3 items-center justify-start" type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-file-plus-2">
-          <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-          <path d="M3 15h6" />
-          <path d="M6 12v6" />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2"> <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="M3 15h6" /> <path d="M6 12v6" /></svg>
         Quais são suas intenções? {{ $contents ? '('.count($contents).')' : ''}}
       </button>
 
