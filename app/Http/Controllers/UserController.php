@@ -13,11 +13,14 @@ class UserController extends Controller
     public function login(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'pin' => 'required|digits:5|max:5'
+            'pin' => 'required|digits:5'
+        ], [
+            'required' => 'O campo :attribute é obrigatório.',
+            'pin.digits' => 'O campo :attribute deve ter, no máximo, 5 caracteres.',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return redirect('/entrar')->withErrors($validator);
         }
 
         $user = new User([

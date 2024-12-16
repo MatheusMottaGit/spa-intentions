@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap" rel="stylesheet">
   @vite(['resources/js/app.js', 'resources/css/app.css'])
-  <title>Intenções</title>
+  <title>@yield('title')</title>
 </head>
 <body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-5">
   <header class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-2 gap-4 mx-auto">

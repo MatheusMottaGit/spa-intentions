@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Intenções | Criar')
+    
 @section('content')
   <div class="flex-1 flex flex-col gap-6 sm:gap-8 items-center justify-center px-4 sm:px-6">
     <div class="text-center space-y-4">

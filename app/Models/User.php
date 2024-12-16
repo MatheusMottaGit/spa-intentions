@@ -43,7 +43,10 @@ class User extends Authenticatable
 
     public function assignRole(string $pin)
     {
-        $role = Role::where('role_name', $pin === env('ADMIN_SECRET') ? 'admin' : 'user')->first();
+        $role = Role::where(
+            'role_name', 
+            $pin === env('ADMIN_SECRET') ? 'admin' : 'user'
+        )->first();
 
         if ($role) {
             $this->role()->associate($role);

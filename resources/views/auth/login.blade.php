@@ -35,11 +35,14 @@
             name="name" 
             id="name" 
             type="text">
+          @error('name')
+            <span class="text-red-500 font-medium">{{ $message }}</span>
+          @enderror
         </div>
 
         <div class="space-y-2">
           <label class="font-medium" for="pin">
-            PIN <span class="opacity-60">(Até 5 caracteres)</span>
+            PIN <span class="opacity-60">(Número de 5 caracteres)</span>
           </label>
           <input 
             placeholder="Exemplo: 12345" 
@@ -47,6 +50,9 @@
             name="pin" 
             id="pin" 
             type="text">
+          @error('pin')
+            <span class="text-red-500 font-medium">{{ $message }}</span>
+          @enderror
         </div>
 
         <button 

@@ -23,21 +23,26 @@ class IntentionController extends Controller
       'mass_date' => 'required|date|after_or_equal:' . now()->toDateString(),
       'contents' => 'required|array',
       'contents.*' => 'string'
+    ], [
+      'mass_date.required' => 'A data e horário da missa devem ser informados.',
+      'contents.required' => 'Suas intenções devem ser informadas.'
     ]);  
 
+    Log::debug($request->all());
+
     if ($validator->fails()) {
-      return response()->json($validator->errors(), 409);
+      return redirect('/')->withErrors($validator);
     }
 
     $userId = $request->query('user_id');
 
     $churchId = $request->query('church_id');
 
-    // Log::debug($churchId);
-
     $user = User::where('id', $userId)->firstOrFail();
 
     [$hour, $min] = explode(':', $request->mass_hour);
+
+    // Log::debug($request->mass_hour);
 
     Intention::create([
       'mass_date' => Carbon::parse($request->mass_date)->setHours((int)$hour)->setMinutes((int)$min)->setSeconds(0),

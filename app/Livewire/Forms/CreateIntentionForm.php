@@ -14,6 +14,15 @@ class CreateIntentionForm extends Component
     public $churches = [];
     public $churchId = "";
     public $churchName = "";
+    public $hours = [
+        '07:00',
+        '08:00',
+        '09:00',
+        '10:00',
+        '18:00',
+        '19:00'
+    ];
+    public $selectedHour;
 
     public function addIntentions() {
         $this->contents[] = $this->content;
@@ -39,14 +48,20 @@ class CreateIntentionForm extends Component
         $this->showModal = !$this->showModal;
     }
 
-    public function mount($churches) {
-        $this->churches = $churches;
+    public function selectHour(int $index) {
+        if (isset($index)) {
+            $this->selectedHour = $this->hours[$index];
+        }
     }
 
     public function selectChurch(string $id, string $name) {
         $this->churchId = $id;
         $this->churchName = $name;
         // dd($this->churchId, $this->churchName);
+    }
+    
+    public function mount($churches) {
+        $this->churches = $churches;
     }
 
     public function render()

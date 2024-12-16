@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Intenções')
+
 @section('content')
   <div class="flex flex-wrap gap-4 mt-6 justify-center px-6">
     @foreach ($intentions as $date => $intentionGroup)
