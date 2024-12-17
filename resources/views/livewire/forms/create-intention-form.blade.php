@@ -187,9 +187,9 @@
 
     <button type="submit" class="lg:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 lg:h-14 rounded-md">
       @if ($isLoading)
-      <img src="{{ url('assets/loader.svg') }}" class="animate-spin size-5">
+        <img src="{{ url('assets/loader.svg') }}" class="animate-spin size-5">
       @else
-      Enviar <img src="{{ url('assets/send.svg') }}" class="size-5">
+        Enviar <img src="{{ url('assets/send.svg') }}" class="size-5">
       @endif
     </button>
   </form>

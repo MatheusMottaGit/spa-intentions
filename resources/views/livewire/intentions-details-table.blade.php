@@ -65,45 +65,16 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($intentionsGroup as $intention)
-            <tr class="bg-transparent border-zinc-700 hover:bg-zinc-900">
-              <td class="px-4 py-4 text-zinc-300 text-base">
-                @if (count($intention->contents) !== 0 && is_array($intention->contents))
-                  <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
-                    {{ Str::limit($intention->contents[0], 19, '...') }}
-                  </button>
-                @endif
-    
-                <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 bg-black/60 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                  <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative rounded-lg shadow bg-zinc-900">
-                      <div class="flex items-center justify-between p-4 md:p-5 rounded-t border-b border-b-zinc-700">
-                        <h3 class="text-xl font-semibold text-white">Detalhes da intenção</h3>
-                        <button type="button" wire:click="toggleModal"
-                          class="text-zinc-400 bg-transparent hover:text-zinc-400 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-zinc-600">
-                          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                          </svg>
-                          <span class="sr-only">Fechar modal</span>
-                        </button>
-                      </div>
-
-                      <div class="p-4">
-                        <ul class="max-w-md space-y-1 list-disc list-inside text-zinc-400">
-                          @foreach ($intention->contents as $content)
-                            <li class="text-lg">
-                              {{ $content }}
-                            </li>
-                          @endforeach
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
+          @foreach ($intentionsGroup as $date => $item)
+            @foreach ($item['contents'] as $content)
+              <tr class="bg-transparent border-b border-b-zinc-700 hover:bg-zinc-900">
+                <td class="px-4 py-4 text-zinc-300 text-base">
+                  <span class="text-lg">
+                    {{ $content }}
+                  </span>
+                </td>
+              </tr>
+            @endforeach
           @endforeach
         </tbody>
       </table>
