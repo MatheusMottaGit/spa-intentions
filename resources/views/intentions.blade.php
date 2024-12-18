@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('components.layouts.app')
 
 @section('title', 'Intenções')
 
@@ -11,7 +11,9 @@
         </h2>
 
         {{-- <p class="mb-3 font-normal text-zinc-700 dark:text-zinc-400">
-          {{ count($intentionGroup) > 1 ? count($intentionGroup) . ' intenções registradas' : count($intentionGroup) . ' intenção registrada' }}
+          @foreach ($intentionGroup as $index => $item)
+            {{ count($item['contents']) > 1 ? count($item['contents']) . ' intenções registradas' : count($item['contents']) . ' intenção registrada' }}
+          @endforeach
         </p> --}}
         
         <a href="{{ route('intentions.details', ['date' => $date]) }}" class="inline-flex items-center w-full justify-center sm:w-auto px-3 py-2 font-medium text-center text-white bg-cyan-800 rounded-lg hover:bg-cyan-900 focus:ring-4 focus:outline-none">

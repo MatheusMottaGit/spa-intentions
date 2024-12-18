@@ -72,10 +72,4 @@ class IntentionController extends Controller
     
     return view('intentions', compact('intentions'));
   }
-
-  public function intentionsDetailsView(string $date) {
-    $intentionsGroup = Intention::whereDate('mass_date', $date)->get();
-
-    return view('intentions-details', compact('date', 'intentionsGroup'));
-  }
 }
