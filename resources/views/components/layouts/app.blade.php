@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:wght@100..900&display=swap" rel="stylesheet">
   @livewireStyles
-  @livewireScripts
   @vite(['resources/js/app.js', 'resources/css/app.css'])
   <title>@yield('title')</title>
 </head>
@@ -38,5 +37,7 @@
   <main class="flex-1 py-4">
     @yield('content')
   </main>
+
+  @livewireScripts
 </body>
 </html>

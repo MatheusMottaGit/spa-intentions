@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire;
 
 use App\Models\Church;
 use App\Models\Intention;
@@ -33,17 +33,11 @@ class IntentionsDetails extends Component
 
     public function render()
     {
-        $date = Carbon::parse($this->urlDate);
-
-        $intentionsGroup = Intention::whereDate('mass_date', $date)
+        $intentionsGroup = Intention::whereDate('mass_date', Carbon::parse($this->urlDate))
             ->whereTime('mass_date', $this->selectedHour)
             ->where('church_id', $this->selectedChurch)
             ->paginate(5);
 
-        return view('livewire.pages.intentions-details', [
-            'intentionsGroup' => $intentionsGroup,
-        ])
-            ->extends('components.layouts.app')
-            ->section('content');
+        return view('livewire.intentions-details', compact('intentionsGroup'));
     }
 }

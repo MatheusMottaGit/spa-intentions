@@ -7,8 +7,8 @@ use App\Models\Intention;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Log;
-use Validator;
 
 class IntentionController extends Controller
 {
@@ -28,7 +28,7 @@ class IntentionController extends Controller
       'contents.required' => 'Suas intenções devem ser informadas.'
     ]);  
 
-    Log::debug($request->all());
+    \Illuminate\Support\Facades\Log::debug($request->all());
 
     if ($validator->fails()) {
       return redirect('/')->withErrors($validator);

@@ -1,7 +1,7 @@
 <div class="flex-1 p-6">
     <div class="flex flex-col md:flex-row gap-2">
         <!-- horários -->
-        <div class="w-40 flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 items-center">
+        <div class="w-full flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 items-center">
             <button id="dropdownButton1" data-dropdown-toggle="dropdown1"
                 class="text-white w-full md:w-64 hover:bg-zinc-900 border border-zinc-600 focus:ring-2 focus:outline-none font-medium rounded-lg text-base px-4 py-2.5 flex justify-between items-center"
                 type="button">
