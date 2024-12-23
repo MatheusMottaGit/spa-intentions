@@ -38,6 +38,10 @@ class IntentionsDetails extends Component
             ->where('church_id', $this->selectedChurch)
             ->paginate(5);
 
-        return view('livewire.intentions-details', compact('intentionsGroup'));
+        return view('livewire.intentions-details', [
+            'intentionsGroup' => $intentionsGroup,
+        ])
+            ->extends('components.layouts.app')
+            ->section('content');
     }
 }
