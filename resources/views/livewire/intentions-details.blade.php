@@ -90,17 +90,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($intentionsGroup as $intention)
-                        @foreach ($intention->contents as $content)
-                            <tr class="bg-transparent border-b border-b-zinc-700 hover:bg-zinc-900">
-                                <td class="px-4 py-4 text-zinc-300 text-base">
-                                    <span class="text-lg">
-                                        {{ $content }}
-                                    </span>
-                                </td>
-                            </tr>
+                    @if (count($intentionsGroup) !== 0)
+                        @foreach ($intentionsGroup as $intention)
+                            @foreach ($intention->contents as $content)
+                                <tr class="bg-transparent border-b border-b-zinc-700 hover:bg-zinc-900">
+                                    <td class="px-4 py-4 text-zinc-300 text-base">
+                                        <span class="text-lg">
+                                            {{ $content }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
-                    @endforeach
+                    @else
+                        <tr class="bg-transparent border-b border-b-zinc-700 hover:bg-zinc-900">
+                            <td class="p-3 text-zinc-300 text-center">
+                                <p class="mb-3 text-lg text-zinc-100 font-semibold">Nenhuma intenção para este horário ou comunidade...</p>
+                                <p class="text-zinc-400 text-base">Selecione o horário ou comunidade que necessita no momento!</p>
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
             <div>

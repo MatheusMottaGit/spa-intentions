@@ -12,9 +12,9 @@
   <title>@yield('title')</title>
 </head>
 <body class="font-inter bg-zinc-950 text-white min-h-screen flex flex-col gap-5">
-  <header class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-2 gap-4 mx-auto">
-    <div class="flex items-center gap-2">
-      <img src="{{ url('assets/logo.svg') }}" alt="Logo" class="h-28">
+  <header class="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 mx-auto">
+    <div class="flex items-center">
+      <img src="{{ url('assets/logo.svg') }}" class="h-24">
       <div class="flex flex-col gap-1 items-start">
         <span class="font-bold">{{ auth()->user()->name }}</span>
         <form action="{{ route('auth.logOut') }}" method="POST" class="inline">
@@ -25,13 +25,6 @@
         </form>
       </div>
     </div>
-
-    {{-- @if (Auth::user()->isAdmin() && !request()->is('intencoes'))
-      <a href="{{ url('/intencoes') }}" class="flex items-center justify-center gap-1 bg-cyan-800 font-medium shadow-md py-2 px-3 rounded-md text-sm sm:text-base">
-        <img src="{{ url('assets/notepad-text.svg') }}" class="h-5 sm:h-6">
-        Ver todas as intenções
-      </a>
-    @endif --}}
   </header>
 
   <main class="flex-1 py-4">
