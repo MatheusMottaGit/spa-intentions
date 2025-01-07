@@ -31,7 +31,7 @@
           <label class="font-medium" for="name">Nome</label>
           <input 
             placeholder="Digite seu nome" 
-            class="border-none w-full rounded-md bg-zinc-900 h-12 px-3 py-2 text-zinc-300 focus:outline-none focus:ring-2 focus:ring-cyan-700" 
+            class="border-none w-full rounded-md bg-zinc-900 h-12 px-3 py-2 text-zinc-300 focus:outline-none focus:ring-2 focus:ring-cyan-950" 
             name="name" 
             id="name" 
             type="text">
@@ -42,11 +42,11 @@
 
         <div class="space-y-2">
           <label class="font-medium" for="pin">
-            PIN <span class="opacity-60">(Número de 5 caracteres)</span>
+            Identificador <span class="opacity-60">(Número de 5 dígitos)</span>
           </label>
           <input 
             placeholder="Exemplo: 12345" 
-            class="border-none w-full rounded-md bg-zinc-900 h-12 px-3 py-2 text-zinc-300 focus:outline-none focus:ring-2 focus:ring-cyan-700" 
+            class="border-none w-full rounded bg-zinc-900 h-12 px-3 py-2 text-zinc-300 focus:outline-none focus:ring-2 focus:ring-cyan-950" 
             name="pin" 
             id="pin" 
             type="text">
@@ -55,9 +55,7 @@
           @enderror
         </div>
 
-        <button 
-          type="submit" 
-          class="md:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 rounded-md focus:ring-2 focus:ring-cyan-700 focus:ring-offset-2">
+        <button type="submit" class="md:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 rounded focus:ring-2 focus:ring-cyan-800 focus:ring-offset-2">
           Entrar 
           <img src="{{ url('assets/arrow-right-to-line.svg') }}" class="h-5 w-5">
         </button>

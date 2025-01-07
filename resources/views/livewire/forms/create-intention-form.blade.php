@@ -65,7 +65,7 @@
     <div class="space-y-2">
       <label class="text-lg font-medium" for="mass_date">Data da missa</label>
 
-      <div class="relative h-12 lg:h-14 rounded-md">
+      <div class="relative h-12 lg:h-14 rounded">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg class="w-4 h-4 text-zinc-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
             viewBox="0 0 20 20">
@@ -73,16 +73,19 @@
           </svg>
         </div>
 
-        <input name="mass_date" id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" datepicker-orientation="bottom left" type="text" class="border-none text-zinc-400 bg-zinc-900 rounded-md h-full w-full ps-10" placeholder="Selecionar data...">
+        <input name="mass_date" id="datepicker-format" datepicker datepicker-format="yyyy-mm-dd" datepicker-orientation="bottom left" type="text" class="border-none text-zinc-400 bg-zinc-900 rounded h-full w-full ps-10 focus:ring-2 focus:ring-cyan-900" placeholder="Selecionar data">
       </div>
     </div>
 
     <div class="space-y-2">
       <label for="time" class="text-lg font-medium">Horário</label>
-
+      
       <div class="flex flex-column h-12 lg:h-14 base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
-        <button id="dropdownDefaultButton-2" data-dropdown-toggle="dropdown-2" class="text-zinc-500 h-full bg-zinc-900 justify-between w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
-          {{ $selectedHour ? $selectedHour : 'Escolher horário' }}
+        <button id="dropdownDefaultButton-2" data-dropdown-toggle="dropdown-2" class="text-zinc-500 h-full bg-zinc-900 justify-between w-full focus:ring-2 focus:ring-cyan-900 font-medium rounded text-base px-4 py-3 inline-flex items-center" type="button">
+          <div class="-ml-1 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {{ $selectedHour ? $selectedHour : 'Escolher horário' }}
+          </div>
 
           <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
@@ -105,8 +108,11 @@
       <label class="text-lg font-medium" for="church">Comunidade da missa</label>
 
       <div class="flex flex-column h-12 lg:h-14 base:flex-row flex-wrap space-y-4 base:space-y-0 items-center justify-between">
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-zinc-500 bg-zinc-900 justify-between h-full w-full focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-3 inline-flex items-center" type="button">
-          {{ $churchName ? $churchName : 'Escolher comunidade' }}
+        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-zinc-500 bg-zinc-900 justify-between h-full w-full focus:ring-2 focus:ring-cyan-900 font-medium rounded text-base px-4 py-3 inline-flex items-center" type="button">
+          <div class="-ml-1 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-church"><path d="M10 9h4"/><path d="M12 7v5"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 22V5.618a1 1 0 0 0-.553-.894l-4.553-2.277a2 2 0 0 0-1.788 0L6.553 4.724A1 1 0 0 0 6 5.618V22"/><path d="m18 7 3.447 1.724a1 1 0 0 1 .553.894V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.618a1 1 0 0 1 .553-.894L6 7"/></svg>
+            {{ $churchName ? $churchName : 'Escolher comunidade' }}
+          </div>
 
           <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 10 6">
@@ -128,7 +134,7 @@
     </div>
 
     <div class="space-y-2 lg:col-span-2 border-t border-t-zinc-800">
-      <button wire:click="toggleModal" class="w-full flex gap-2 text-zinc-500 rounded-md px-3 py-3 items-center justify-start" type="button">
+      <button wire:click="toggleModal" class="w-full flex gap-2 text-zinc-500 rounded px-3 py-3 items-center justify-start" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-plus-2"> <path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="M3 15h6" /> <path d="M6 12v6" /></svg>
         Quais são suas intenções? {{ $contents ? '('.count($contents).')' : ''}}
       </button>
@@ -155,7 +161,7 @@
           @if (count($contents) !== 0)
           <div class="flex flex-wrap gap-2 p-4">
             @foreach ($contents as $key => $intention)
-            <div class="py-1.5 px-3 bg-zinc-800 rounded-md flex items-center gap-5 text-zinc-400">
+            <div class="py-1.5 px-3 bg-zinc-800 rounded flex items-center gap-5 text-zinc-400">
               <span class="text-lg w-full text-center">{{ $intention }}</span>
 
               <button class="bg-transparent" type="button" wire:click="removeIntention({{ $key }})">
@@ -169,11 +175,11 @@
           <!-- Footer -->
           <div class="flex items-center flex-col gap-2 p-4 md:p-5 rounded-b">
             <input placeholder="Digite sua intenção..."
-              class="w-full rounded-md outline-none border-none bg-zinc-800 h-12 lg:h-14 px-3 py-2 text-zinc-300"
+              class="w-full rounded outline-none border-none bg-zinc-800 h-12 lg:h-14 px-3 py-2 text-zinc-300 focus:ring-2 focus:ring-cyan-900"
               wire:model="content" id="contents" type="text">
 
             <button wire:click='addIntentions'
-              class="bg-cyan-800 hover:bg-cyan-900 rounded-md gap-2 h-12 lg:h-14 w-full lg:w-16 flex items-center justify-center"
+              class="bg-cyan-800 hover:bg-cyan-900 rounded gap-2 h-12 lg:h-14 w-full lg:w-16 flex items-center justify-center"
               type="button">
               Adicionar
               <img src="{{ url('assets/plus.svg') }}" class="h-5 w-5 lg:h-6 lg:w-6">
@@ -184,7 +190,7 @@
       @endif
     </div>
 
-    <button type="submit" class="lg:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 lg:h-14 rounded-md">
+    <button type="submit" class="lg:col-span-2 flex items-center justify-center gap-2 font-medium bg-cyan-800 hover:bg-cyan-900 h-12 lg:h-14 rounded focus:ring-2 focus:ring-cyan-800 focus:ring-offset-2">
       @if ($isLoading)
         <img src="{{ url('assets/loader.svg') }}" class="animate-spin size-5">
       @else

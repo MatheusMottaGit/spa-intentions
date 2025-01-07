@@ -105,16 +105,15 @@
                     @else
                         <tr class="bg-transparent border-b border-b-zinc-700 hover:bg-zinc-900">
                             <td class="p-3 text-zinc-300 text-center">
-                                <p class="mb-3 text-lg text-zinc-100 font-semibold">Nenhuma intenção para este horário ou comunidade...</p>
-                                <p class="text-zinc-400 text-base">Selecione o horário ou comunidade que necessita no momento!</p>
+                                <p class="text-lg text-zinc-100 font-semibold">Nenhuma intenção para este horário ou comunidade...</p>
                             </td>
                         </tr>
                     @endif
                 </tbody>
             </table>
-            <div>
+            {{-- <div>
                 {{ $intentionsGroup->links() }}
-            </div>
+            </div> --}}
         </div>
     </div> 
 </div>
