@@ -1,9 +1,9 @@
 <div class="flex-1 p-6">
-    <div class="flex flex-col md:flex-row gap-2">
+    <div class="flex flex-col md:flex-row gap-2 -mt-8">
         <!-- horários -->
         <div class="w-full flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 items-center">
             <button id="dropdownButton1" data-dropdown-toggle="dropdown1"
-                class="text-white w-full md:w-64 hover:bg-zinc-900 border border-zinc-600 focus:ring-2 focus:outline-none font-medium rounded-lg text-base px-4 py-2.5 flex justify-between items-center"
+                class="text-white w-full md:w-64 hover:bg-zinc-900 border border-zinc-600 focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-2.5 flex justify-between items-center"
                 type="button">
                 <div class="flex items-center gap-2">
                     <svg class="size-3 text-zinc-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@
             </button>
 
             <div id="dropdown1"
-                class="z-10 hidden w-48 divide-y rounded-lg shadow border border-zinc-600 bg-zinc-950 divide-zinc-600">
+                class="z-10 hidden w-48 divide-y rounded-md shadow border border-zinc-600 bg-zinc-950 divide-zinc-600">
                 <ul class="py-2 text-base text-zinc-300">
                     @foreach ($massHours as $hour)
                     <li wire:click="filterIntentions('{{ $hour }}', {{ $selectedChurch }})"
@@ -40,7 +40,7 @@
         <!-- comunidades -->
         <div class="w-full md:w-auto flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 items-center">
             <button id="dropdownButton2" data-dropdown-toggle="dropdown2"
-                class="text-white w-full md:w-64 hover:bg-zinc-900 border border-zinc-600 focus:ring-2 focus:outline-none font-medium rounded-lg text-base px-4 py-2.5 flex justify-between items-center"
+                class="text-white w-full md:w-64 hover:bg-zinc-900 border border-zinc-600 focus:ring-2 focus:outline-none font-medium rounded-md text-base px-4 py-2.5 flex justify-between items-center"
                 type="button">
                 <div class="flex items-center gap-2">
                     <svg class="size-4 text-zinc-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -66,7 +66,7 @@
             </button>
 
             <div id="dropdown2"
-                class="z-10 hidden divide-y rounded-lg shadow border border-zinc-600 bg-zinc-950 divide-zinc-600">
+                class="z-10 hidden divide-y rounded-md shadow border border-zinc-600 bg-zinc-950 divide-zinc-600">
                 <ul class="py-2 text-base text-zinc-300">
                     @foreach ($churches as $church)
                     <li wire:click="filterIntentions('{{ $selectedHour }}', {{ $church->id }})"
@@ -80,7 +80,7 @@
     </div>
 
     <div class="w-full text-sm space-y-3 mt-5">
-        <div class="relative overflow-x-auto shadow-md border-t-0 border border-zinc-600 rounded-lg mt-4">
+        <div class="relative overflow-x-auto shadow-md border-t-0 border border-zinc-600 rounded-md mt-4">
             <table class="w-full text-sm sm:text-base text-left rtl:text-right">
                 <thead class="text-white uppercase bg-cyan-800">
                     <tr>
@@ -111,9 +111,6 @@
                     @endif
                 </tbody>
             </table>
-            {{-- <div>
-                {{ $intentionsGroup->links() }}
-            </div> --}}
         </div>
     </div> 
 </div>
