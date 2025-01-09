@@ -10,5 +10,29 @@ services:
       POSTGRES_DB: spa_intentions
       POSTGRES_USER: spa
       POSTGRES_PASSWORD: spa
+  spa_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+      - '5173:5173'
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - spa_postgres
+  vite:
+    container_name: vite
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    ports:
+      - '5174:5173'
+    command: ["npm", "run", "dev"]
+    depends_on:
+      - spa_app
 volumes:
   spa_intentions:
