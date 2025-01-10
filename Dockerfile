@@ -1,34 +1,29 @@
-FROM php:8.2-fpm
+FROM bitnami/laravel:11
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpq-dev \
-    git \
-    zip \
-    unzip \
-    curl \
-    libbz2-dev \
-    libxml2-dev \
-    libonig-dev \
-    && docker-php-ext-install bcmath mbstring pdo pdo_pgsql \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV TZ=America/Sao_Paulo
 
-COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
-
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm
+RUN mkdir /var/www && mkdir /var/www/html
 
 WORKDIR /var/www/html
 
-COPY . /var/www/html
+RUN sudo apt-get update
 
-RUN composer install
+RUN sudo chown -R bitnami:bitnami /var/www/html && \
+	cd /var/www/html && rm -Rf laravel
+RUN echo '================================'
+RUN echo 'Instalando o Laravel via Composer'
+RUN echo '================================'
+RUN composer global require laravel/installer&& \
+	composer create-project --prefer-dist laravel/laravel:'11.*'
 
-RUN npm install
+RUN echo '========================='
+RUN echo 'Configurando o PostgreSQL'
+RUN echo '========================='
+RUN echo 'extension=pgsql.so' | sudo tee -a /opt/bitnami/php/lib/php.ini && \
+	echo 'extension=pdo_pgsql.so' | sudo tee -a /opt/bitnami/php/lib/php.ini
 
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN rm -Rf /app && ln -s /var/www/html /app
 
-EXPOSE 8000
+RUN sudo apt install git -y
 
-CMD ["php" ,"artisan" ,"serve","--host=0.0.0.0", "--port=8000"]
+WORKDIR /app
