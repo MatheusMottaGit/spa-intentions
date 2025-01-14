@@ -28,7 +28,7 @@ class IntentionController extends Controller
       'contents.required' => 'Suas intenções devem ser informadas.'
     ]);  
 
-    \Illuminate\Support\Facades\Log::debug($request->all());
+    // \Illuminate\Support\Facades\Log::debug($request->all());
 
     if ($validator->fails()) {
       return redirect('/')->withErrors($validator);
