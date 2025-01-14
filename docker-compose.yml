@@ -10,26 +10,5 @@ services:
       POSTGRES_DB: spa_intentions
       POSTGRES_USER: spa
       POSTGRES_PASSWORD: spa
-  spa_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=localhost
-      - DB_PORT=5432
-      - DB_DATABASE=spa_intentions
-      - DB_USERNAME=spa
-      - DB_PASSWORD=spa
-    ports:
-      - '8000:8000'
-      - '5173:5173'
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - spa_postgres
-    container_name: spa_web
-    # command: 'bash -c "composer update"'
-    # command: "bash -c 'composer install'"
 volumes:
   spa_intentions:
