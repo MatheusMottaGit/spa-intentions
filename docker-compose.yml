@@ -1,5 +1,5 @@
 services:
-  spa_postgres:
+  postgres:
     container_name: spa_db
     image: postgres:15-alpine
     ports:
@@ -10,5 +10,17 @@ services:
       POSTGRES_DB: spa_intentions
       POSTGRES_USER: spa
       POSTGRES_PASSWORD: spa
+  laravel:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: spa_web
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8000:8000
+      - 5173:5173
+    depends_on:
+      - postgres
 volumes:
   spa_intentions:
