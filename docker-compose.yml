@@ -15,11 +15,19 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: spa_web
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_DATABASE=spa_intentions
+      - DB_USERNAME=spa
+      - DB_PASSWORD=spa
     volumes:
       - .:/var/www/html
+      - ./public:/var/www/html/public
     ports:
-      - 8000:8000
-      - 5173:5173
+      - '8000:8000'
+      - '5173:5173'
     depends_on:
       - postgres
 volumes:
