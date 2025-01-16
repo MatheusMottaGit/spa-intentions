@@ -7,24 +7,24 @@ services:
     volumes:
       - spa_intentions:/var/lib/postgresdata
     environment:
-      POSTGRES_DB: spa_intentions
-      POSTGRES_USER: spa
-      POSTGRES_PASSWORD: spa
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   laravel:
     build: 
       context: .
       dockerfile: Dockerfile
     container_name: spa_web
     environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=host.docker.internal
-      - DB_PORT=5432
-      - DB_DATABASE=spa_intentions
-      - DB_USERNAME=spa
-      - DB_PASSWORD=spa
+      - DB_CONNECTION=${DB_CONNECTION}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - VITE_PORT=${VITE_PORT}
     volumes:
       - .:/var/www/html
-      - ./public:/var/www/html/public
     ports:
       - '8000:8000'
       - '5173:5173'

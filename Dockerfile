@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     nodejs \
     npm \
-    && docker-php-ext-install pdo_pgsql
+    && docker-php-ext-install pdo_pgsql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -21,4 +22,4 @@ RUN chown -R www-data:www-data /var/www/html \
 
 EXPOSE 8000
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+ENTRYPOINT ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
