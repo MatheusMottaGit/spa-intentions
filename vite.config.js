@@ -12,7 +12,7 @@ export default defineConfig({
         host: '0.0.0.0', // vite localhost do not work on Docker
         port: 5173,
         hmr: {
-            host: 'localhost',
+            host: 'localhost', // hot module replacement for my localhost
         },
     },
 });
