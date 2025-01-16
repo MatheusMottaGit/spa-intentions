@@ -9,7 +9,10 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: '0.0.0.0',
-        port: process.env.VITE_PORT || 5173,
+        host: '0.0.0.0', // vite localhost do not work on Docker
+        port: 5173,
+        hmr: {
+            host: 'localhost',
+        },
     },
 });
