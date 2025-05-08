@@ -1,146 +1,109 @@
-# SPA Intentions
+# SPA Intentions - Church Mass Intentions Management System
 
-A modern Single Page Application built with Laravel 11, Livewire 3, and Tailwind CSS.
+## Overview
+SPA Intentions is a web application designed to manage and organize mass intentions for churches. The system allows users to register their intentions for specific masses, with features for both regular users and administrators.
 
-## 🚀 Tech Stack
+## Features
 
-- **Backend Framework:** Laravel 11.x
-- **Frontend Framework:** Livewire 3.x
-- **CSS Framework:** Tailwind CSS 3.x
-- **UI Components:** Flowbite
-- **Build Tool:** Vite
-- **Testing:** Pest PHP
-- **PHP Version:** ^8.2
+### User Management
+- User authentication system using PIN-based login
+- Role-based access control (Admin and regular users)
+- Secure session management
+- User profile management
 
-## 📋 Prerequisites
+### Mass Intentions
+- Register mass intentions with specific dates and times
+- Multiple intentions can be registered for a single mass
+- Validation for mass dates (must be current or future dates)
+- Group intentions by date for better organization
 
-- PHP 8.2 or higher
+### Church Management
+- Support for multiple churches
+- Church-specific intention tracking
+- Church selection during intention registration
+
+## Technical Stack
+- **Backend Framework**: Laravel (PHP)
+- **Database**: MySQL/PostgreSQL (Laravel compatible)
+- **Authentication**: Custom PIN-based authentication system
+- **Frontend**: Blade templating engine
+
+## System Requirements
+- PHP 8.0 or higher
 - Composer
-- Node.js and NPM
-- Docker and Docker Compose (for containerized development)
+- Laravel 8.x or higher
+- MySQL/PostgreSQL database
+- Web server (Apache/Nginx)
 
-## 🛠️ Installation
+## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone [repository-url]
-   cd spa-intentions
-   ```
-
-2. Install PHP dependencies:
-   ```bash
-   composer install
-   ```
-
-3. Install Node.js dependencies:
-   ```bash
-   npm install
-   ```
-
-4. Create environment file:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-5. Configure your database in `.env` file
-
-6. Run migrations:
-   ```bash
-   php artisan migrate
-   ```
-
-## 🏗️ Development
-
-### Using Docker
-
-1. Start the Docker containers:
-   ```bash
-   docker-compose up -d
-   ```
-
-2. Access the application at `http://localhost:8000`
-
-### Local Development
-
-1. Start the development server:
-   ```bash
-   composer dev
-   ```
-
-This command will concurrently run:
-- Laravel development server
-- Queue listener
-- Log watcher
-- Vite development server
-
-## 🧪 Testing
-
-Run tests using Pest PHP:
+1. Clone the repository
 ```bash
-php artisan test
+git clone [repository-url]
 ```
 
-## 🏭 Production Build
-
-1. Build assets:
-   ```bash
-   npm run build
-   ```
-
-2. Optimize Laravel:
-   ```bash
-   php artisan optimize
-   ```
-
-## 📦 Project Structure
-
-```
-├── app/              # Application core code
-├── bootstrap/        # Framework bootstrap files
-├── config/          # Configuration files
-├── database/        # Database migrations and seeders
-├── public/          # Publicly accessible files
-├── resources/       # Frontend resources
-├── routes/          # Application routes
-├── storage/         # Application storage
-├── tests/           # Test files
-└── vendor/          # Composer dependencies
-```
-
-## 🔧 Configuration
-
-Key configuration files:
-- `.env` - Environment variables
-- `config/app.php` - Application configuration
-- `tailwind.config.js` - Tailwind CSS configuration
-- `vite.config.js` - Vite configuration
-
-## 📝 Code Style
-
-The project uses Laravel Pint for code style enforcement. Run:
+2. Install dependencies
 ```bash
-./vendor/bin/pint
+composer install
 ```
 
-## 🔐 Security
+3. Configure environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- Keep your `.env` file secure and never commit it to version control
-- Regularly update dependencies using `composer update` and `npm update`
-- Follow Laravel's security best practices
+4. Configure database settings in `.env` file
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-## 📄 License
+5. Run migrations
+```bash
+php artisan migrate
+```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+6. Start the development server
+```bash
+php artisan serve
+```
 
-## 🤝 Contributing
+## Usage
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### User Authentication
+1. Access the login page at `/entrar`
+2. Enter your name and 5-digit PIN
+3. The system will automatically assign appropriate roles based on the PIN
 
-## 📞 Support
+### Registering Mass Intentions
+1. Log in to the system
+2. Navigate to the home page
+3. Select the church
+4. Choose the mass date and time
+5. Enter your intentions
+6. Submit the form
 
-For support, please [open an issue](repository-issues-url) in the repository.
+### Admin Features
+- Access to all intentions view
+- Management of church information
+- User management capabilities
+
+## Security Features
+- PIN-based authentication
+- Session management
+- Input validation
+- Role-based access control
+
+## Contributing
+[Add contribution guidelines here]
+
+## License
+[Add license information here]
+
+## Support
+[Add support information here]
