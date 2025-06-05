@@ -112,7 +112,7 @@ php artisan serve
 
 ### Base URL
 ```
-http://your-domain/api/v1
+http://your-domain/api
 ```
 
 ### Authentication
@@ -150,14 +150,17 @@ Error responses:
 
 ##### Login
 - **POST** `/login`
-- **Description**: Authenticate user with PIN
+- **Description**: Authenticate user with name and PIN
 - **Request Body**:
 ```json
 {
-    "name": "string",
-    "pin": "string (5 digits)"
+    "name": "string (required)",
+    "pin": "string (required, exactly 5 digits)"
 }
 ```
+- **Validation Messages**:
+  - Required fields: "O campo :attribute é obrigatório."
+  - PIN format: "O campo pin deve ter, no máximo, 5 caracteres."
 - **Response**:
 ```json
 {
@@ -165,9 +168,12 @@ Error responses:
     "message": "Usuário autenticado!",
     "data": {
         "user": {
-            "id": "integer",
+            "id": "uuid",
             "name": "string",
-            "role": "string"
+            "role": {
+                "id": "uuid",
+                "role_name": "string"
+            }
         },
         "token": "string"
     }
@@ -186,15 +192,15 @@ Error responses:
 - **GET** `/churches`
 - **Description**: Get list of all churches
 - **Headers**: Requires authentication
+- **Access**: Admin and regular users
 - **Response**:
 ```json
 {
     "success": true,
     "data": [
         {
-            "id": "integer",
-            "name": "string",
-            "address": "string"
+            "id": "uuid",
+            "name": "string"
         }
     ]
 }
@@ -206,30 +212,36 @@ Error responses:
 - **POST** `/intentions`
 - **Description**: Register a new mass intention
 - **Headers**: Requires authentication
+- **Access**: Admin and regular users
 - **Request Body**:
 ```json
 {
-    "mass_date": "date (YYYY-MM-DD)",
-    "mass_hour": "time (HH:mm)",
-    "contents": "string",
-    "church_id": "integer"
+    "mass_date": "date (required, YYYY-MM-DD, must be today or future)",
+    "mass_hour": "time (required, HH:mm format)",
+    "contents": "array (required) of strings",
+    "church_id": "uuid (required, must exist)"
 }
 ```
+- **Validation Messages**:
+  - Mass date: "A data da missa deve ser igual ou posterior a hoje."
+  - Mass hour: "O formato do horário deve ser HH:mm."
+  - Contents: "Suas intenções devem ser informadas."
+  - Church: "A igreja selecionada não existe."
 - **Response**:
 ```json
 {
     "success": true,
     "message": "Intenção registrada!",
     "data": {
-        "id": "integer",
+        "id": "uuid",
         "mass_date": "datetime",
-        "contents": "string",
+        "contents": ["string"],
         "church": {
-            "id": "integer",
+            "id": "uuid",
             "name": "string"
         },
         "user": {
-            "id": "integer",
+            "id": "uuid",
             "name": "string"
         }
     }
@@ -238,8 +250,9 @@ Error responses:
 
 ##### List Intentions
 - **GET** `/intentions`
-- **Description**: Get all mass intentions (Admin only)
+- **Description**: Get all mass intentions
 - **Headers**: Requires authentication
+- **Access**: Admin only
 - **Response**:
 ```json
 {
@@ -247,15 +260,15 @@ Error responses:
     "data": {
         "YYYY-MM-DD": [
             {
-                "id": "integer",
+                "id": "uuid",
                 "mass_date": "datetime",
-                "contents": "string",
+                "contents": ["string"],
                 "church": {
-                    "id": "integer",
+                    "id": "uuid",
                     "name": "string"
                 },
                 "user": {
-                    "id": "integer",
+                    "id": "uuid",
                     "name": "string"
                 }
             }
@@ -264,12 +277,50 @@ Error responses:
 }
 ```
 
+### Data Models
+
+#### User
+- UUID primary key
+- Fields:
+  - name (string)
+  - pin (string, 5 digits)
+  - role_id (uuid, foreign key)
+- Relationships:
+  - hasMany Intentions
+  - belongsTo Role
+
+#### Church
+- UUID primary key
+- Fields:
+  - name (string)
+- Relationships:
+  - hasMany Intentions
+
+#### Intention
+- UUID primary key
+- Fields:
+  - contents (array of strings)
+  - user_id (uuid, foreign key)
+  - mass_date (datetime)
+  - church_id (uuid, foreign key)
+- Relationships:
+  - belongsTo User
+  - belongsTo Church
+
+#### Role
+- UUID primary key
+- Fields:
+  - role_name (string)
+- Relationships:
+  - hasMany Users
+
 ### Features
 
 #### User Management
-- PIN-based authentication system
+- UUID-based user identification
+- PIN-based authentication system (5 digits)
 - Role-based access control (Admin and regular users)
-- Secure token-based session management
+- Secure token-based session management using Laravel Sanctum
 - User profile management
 
 #### Mass Intentions
@@ -278,6 +329,7 @@ Error responses:
 - Validation for mass dates (must be current or future dates)
 - Group intentions by date for better organization
 - Church-specific intention tracking
+- Contents stored as array of strings
 
 #### Church Management
 - Support for multiple churches
@@ -286,7 +338,9 @@ Error responses:
 
 ### Security Features
 - PIN-based authentication
-- Token-based session management
-- Input validation
+- Token-based session management using Laravel Sanctum
+- Input validation with custom error messages
 - Role-based access control
-- Sanctum authentication middleware
+- UUID-based primary keys for all models
+- Form request validation
+- Resource transformation for API responses
