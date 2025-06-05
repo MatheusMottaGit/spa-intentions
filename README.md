@@ -22,19 +22,6 @@ SPA Intentions is a web application designed to manage and organize mass intenti
 - Church-specific intention tracking
 - Church selection during intention registration
 
-## Technical Stack
-- **Backend Framework**: Laravel (PHP)
-- **Database**: MySQL/PostgreSQL (Laravel compatible)
-- **Authentication**: Custom PIN-based authentication system
-- **Frontend**: Blade templating engine
-
-## System Requirements
-- PHP 8.0 or higher
-- Composer
-- Laravel 8.x or higher
-- MySQL/PostgreSQL database
-- Web server (Apache/Nginx)
-
 ## Installation
 
 1. Clone the repository
@@ -73,40 +60,95 @@ php artisan migrate
 php artisan serve
 ```
 
-## Usage
+## Running with Docker
 
-### User Authentication
-1. Access the login page at `/entrar`
-2. Enter your name and 5-digit PIN
-3. The system will automatically assign appropriate roles based on the PIN
+### Prerequisites
+- Docker
+- Docker Compose
 
-### Registering Mass Intentions
-1. Log in to the system
-2. Navigate to the home page
-3. Select the church
-4. Choose the mass date and time
-5. Enter your intentions
-6. Submit the form
+### Environment Setup
+1. Create a `.env` file in the root directory with the following variables:
+```env
+# Database Configuration
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=spa_intentions
+DB_USERNAME=spa_user
+DB_PASSWORD=spa_password
 
-### Admin Features
-- Access to all intentions view
-- Management of church information
-- User management capabilities
+# PostgreSQL Configuration
+POSTGRES_DB=spa_intentions
+POSTGRES_USER=spa_user
+POSTGRES_PASSWORD=spa_password
 
-## Security Features
-- PIN-based authentication
-- Session management
-- Input validation
-- Role-based access control
+# Vite Configuration
+VITE_PORT=5173
+```
 
-## Contributing
-[Add contribution guidelines here]
+### Running the Application
+1. Build and start the containers:
+```bash
+docker-compose up -d
+```
 
-## License
-[Add license information here]
+2. Install PHP dependencies:
+```bash
+docker-compose exec laravel composer install
+```
 
-## Support
-[Add support information here]
+3. Generate application key:
+```bash
+docker-compose exec laravel php artisan key:generate
+```
+
+4. Run database migrations:
+```bash
+docker-compose exec laravel php artisan migrate
+```
+
+The API will be available at:
+- API: http://localhost:8000
+- Vite Dev Server: http://localhost:5173
+
+### Container Information
+- **API Container (spa_web)**
+  - PHP 8.2 with FPM
+  - Laravel application
+  - Node.js and npm for frontend assets
+  - Exposed ports: 8000 (API), 5173 (Vite)
+
+- **Database Container (spa_db)**
+  - PostgreSQL 15 (Alpine)
+  - Persistent volume for data storage
+  - Exposed port: 5432
+
+### Development Commands
+```bash
+# Access Laravel container shell
+docker-compose exec laravel bash
+
+# Run Laravel commands
+docker-compose exec laravel php artisan <command>
+
+# Run Composer commands
+docker-compose exec laravel composer <command>
+
+# View logs
+docker-compose logs -f
+
+# Stop containers
+docker-compose down
+```
+
+### Stopping the Application
+```bash
+# Stop and remove containers
+docker-compose down
+
+# Stop and remove containers with volumes
+docker-compose down -v
+```
 
 ## API Documentation
 
@@ -276,71 +318,3 @@ Error responses:
     }
 }
 ```
-
-### Data Models
-
-#### User
-- UUID primary key
-- Fields:
-  - name (string)
-  - pin (string, 5 digits)
-  - role_id (uuid, foreign key)
-- Relationships:
-  - hasMany Intentions
-  - belongsTo Role
-
-#### Church
-- UUID primary key
-- Fields:
-  - name (string)
-- Relationships:
-  - hasMany Intentions
-
-#### Intention
-- UUID primary key
-- Fields:
-  - contents (array of strings)
-  - user_id (uuid, foreign key)
-  - mass_date (datetime)
-  - church_id (uuid, foreign key)
-- Relationships:
-  - belongsTo User
-  - belongsTo Church
-
-#### Role
-- UUID primary key
-- Fields:
-  - role_name (string)
-- Relationships:
-  - hasMany Users
-
-### Features
-
-#### User Management
-- UUID-based user identification
-- PIN-based authentication system (5 digits)
-- Role-based access control (Admin and regular users)
-- Secure token-based session management using Laravel Sanctum
-- User profile management
-
-#### Mass Intentions
-- Register mass intentions with specific dates and times
-- Multiple intentions can be registered for a single mass
-- Validation for mass dates (must be current or future dates)
-- Group intentions by date for better organization
-- Church-specific intention tracking
-- Contents stored as array of strings
-
-#### Church Management
-- Support for multiple churches
-- Church-specific intention tracking
-- Church selection during intention registration
-
-### Security Features
-- PIN-based authentication
-- Token-based session management using Laravel Sanctum
-- Input validation with custom error messages
-- Role-based access control
-- UUID-based primary keys for all models
-- Form request validation
-- Resource transformation for API responses
