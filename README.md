@@ -107,3 +107,186 @@ php artisan serve
 
 ## Support
 [Add support information here]
+
+## API Documentation
+
+### Base URL
+```
+http://your-domain/api/v1
+```
+
+### Authentication
+All authenticated endpoints require a Bearer token in the Authorization header:
+```
+Authorization: Bearer <your_token>
+```
+
+### Response Format
+All API responses follow this standard format:
+```json
+{
+    "success": true,
+    "message": "Operation message",
+    "data": {
+        // Response data
+    }
+}
+```
+
+Error responses:
+```json
+{
+    "success": false,
+    "message": "Error message",
+    "errors": {
+        // Validation errors or other error details
+    }
+}
+```
+
+### Endpoints
+
+#### Authentication
+
+##### Login
+- **POST** `/login`
+- **Description**: Authenticate user with PIN
+- **Request Body**:
+```json
+{
+    "name": "string",
+    "pin": "string (5 digits)"
+}
+```
+- **Response**:
+```json
+{
+    "success": true,
+    "message": "Usuário autenticado!",
+    "data": {
+        "user": {
+            "id": "integer",
+            "name": "string",
+            "role": "string"
+        },
+        "token": "string"
+    }
+}
+```
+
+##### Logout
+- **POST** `/logout`
+- **Description**: Logout user and invalidate token
+- **Headers**: Requires authentication
+- **Response**: 204 No Content
+
+#### Churches
+
+##### List Churches
+- **GET** `/churches`
+- **Description**: Get list of all churches
+- **Headers**: Requires authentication
+- **Response**:
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": "integer",
+            "name": "string",
+            "address": "string"
+        }
+    ]
+}
+```
+
+#### Intentions
+
+##### Create Intention
+- **POST** `/intentions`
+- **Description**: Register a new mass intention
+- **Headers**: Requires authentication
+- **Request Body**:
+```json
+{
+    "mass_date": "date (YYYY-MM-DD)",
+    "mass_hour": "time (HH:mm)",
+    "contents": "string",
+    "church_id": "integer"
+}
+```
+- **Response**:
+```json
+{
+    "success": true,
+    "message": "Intenção registrada!",
+    "data": {
+        "id": "integer",
+        "mass_date": "datetime",
+        "contents": "string",
+        "church": {
+            "id": "integer",
+            "name": "string"
+        },
+        "user": {
+            "id": "integer",
+            "name": "string"
+        }
+    }
+}
+```
+
+##### List Intentions
+- **GET** `/intentions`
+- **Description**: Get all mass intentions (Admin only)
+- **Headers**: Requires authentication
+- **Response**:
+```json
+{
+    "success": true,
+    "data": {
+        "YYYY-MM-DD": [
+            {
+                "id": "integer",
+                "mass_date": "datetime",
+                "contents": "string",
+                "church": {
+                    "id": "integer",
+                    "name": "string"
+                },
+                "user": {
+                    "id": "integer",
+                    "name": "string"
+                }
+            }
+        ]
+    }
+}
+```
+
+### Features
+
+#### User Management
+- PIN-based authentication system
+- Role-based access control (Admin and regular users)
+- Secure token-based session management
+- User profile management
+
+#### Mass Intentions
+- Register mass intentions with specific dates and times
+- Multiple intentions can be registered for a single mass
+- Validation for mass dates (must be current or future dates)
+- Group intentions by date for better organization
+- Church-specific intention tracking
+
+#### Church Management
+- Support for multiple churches
+- Church-specific intention tracking
+- Church selection during intention registration
+
+### Security Features
+- PIN-based authentication
+- Token-based session management
+- Input validation
+- Role-based access control
+- Sanctum authentication middleware
